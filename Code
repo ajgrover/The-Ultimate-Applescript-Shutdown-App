@@ -1,102 +1,99 @@
-on is_running Spotify
-    property spotPause : «constant ****kPSp»
-property spotPlay : «constant ****kPSP»
+tell application "Spotify"
+	if player state is equal to playing then
+		tell application "Spotify"
+			playpause
+		end tell
+		
+		delay 1
+		
+		tell application "System Events" to set the visible of every process to true
+		
+		set white_list to {"Finder"}
+		set white_list to {"Shutdown"}
+		
+		try
+			tell application "Finder"
+				set process_list to the name of every process whose visible is true
+			end tell
+			repeat with i from 1 to (number of items in process_list)
+				set this_process to item i of the process_list
+				if this_process is not in white_list then
+					tell application this_process
+						quit
+					end tell
+				end if
+			end repeat
+		on error
+			tell application "Finder"
+				shutdown
+			end tell
+		end try
+		delay 2
+		tell application "Finder"
+			shut down
+		end tell
+	end if
+end tell
 
-tell application "Spotify" to set playerState to player state
 
-if playerState = spotPause then
-	tell application "System Events" to set the visible of every process to true
-	
-	set white_list to {"Finder"}
-	set white_list to {"Shutdown"}
-	
-	try
+tell application "Spotify"
+	if player state is equal to (pause) then
+		tell application "System Events" to set the visible of every process to true
+		
+		set white_list to {"Finder"}
+		set white_list to {"Shutdown"}
+		
+		try
+			tell application "Finder"
+				set process_list to the name of every process whose visible is true
+			end tell
+			repeat with i from 1 to (number of items in process_list)
+				set this_process to item i of the process_list
+				if this_process is not in white_list then
+					tell application this_process
+						quit
+					end tell
+				end if
+			end repeat
+		on error
+			tell application "Finder"
+				shutdown
+			end tell
+		end try
+		delay 2
 		tell application "Finder"
-			set process_list to the name of every process whose visible is true
+			shut down
 		end tell
-		repeat with i from 1 to (number of items in process_list)
-			set this_process to item i of the process_list
-			if this_process is not in white_list then
-				tell application this_process
-					quit
-				end tell
-			end if
-		end repeat
-	on error
-		tell application "Finder"
-			shutdown
-		end tell
-	end try
-	delay 2
-	tell application "Finder"
-		shut down
-	end tell
-else if playerState = spotPlay then
-	tell application "Spotify"
-		playpause
-	end tell
-	
-	delay 1
-	
-	tell application "System Events" to set the visible of every process to true
-	
-	set white_list to {"Finder"}
-	set white_list to {"Shutdown"}
-	
-	try
-		tell application "Finder"
-			set process_list to the name of every process whose visible is true
-		end tell
-		repeat with i from 1 to (number of items in process_list)
-			set this_process to item i of the process_list
-			if this_process is not in white_list then
-				tell application this_process
-					quit
-				end tell
-			end if
-		end repeat
-	on error
-		tell application "Finder"
-			shutdown
-		end tell
-	end try
-	delay 2
-	tell application "Finder"
-		shut down
-	end tell
-end if
+	end if
+end tell
 
-end is_running
-
-set safRunning to is_running("Spotify")
-return safRunning
-if false then
-    tell application "System Events" to set the visible of every process to true
-	
-	set white_list to {"Finder"}
-	set white_list to {"Shutdown"}
-	
-	try
+tell application "Spotify"
+	if it is closed then
+		tell application "System Events" to set the visible of every process to true
+		
+		set white_list to {"Finder"}
+		set white_list to {"Shutdown"}
+		
+		try
+			tell application "Finder"
+				set process_list to the name of every process whose visible is true
+			end tell
+			repeat with i from 1 to (number of items in process_list)
+				set this_process to item i of the process_list
+				if this_process is not in white_list then
+					tell application this_process
+						quit
+					end tell
+				end if
+			end repeat
+		on error
+			tell application "Finder"
+				shutdown
+			end tell
+		end try
+		delay 2
 		tell application "Finder"
-			set process_list to the name of every process whose visible is true
+			shut down
 		end tell
-		repeat with i from 1 to (number of items in process_list)
-			set this_process to item i of the process_list
-			if this_process is not in white_list then
-				tell application this_process
-					quit
-				end tell
-			end if
-		end repeat
-	on error
-		tell application "Finder"
-			shutdown
-		end tell
-	end try
-	delay 2
-	tell application "Finder"
-		shut down
-	end tell
-
-    end tell
-end if
+	end if
+end tell
