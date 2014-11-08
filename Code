@@ -1,13 +1,6 @@
 tell application "Spotify"
-	if player state is equal to playing then
-		tell application "Spotify"
-			playpause
-		end tell
-		
-		delay 1
-		
+	if it is closed then
 		tell application "System Events" to set the visible of every process to true
-		
 		set white_list to {"Finder"}
 		set white_list to {"Shutdown"}
 		
@@ -67,8 +60,15 @@ tell application "Spotify"
 	end if
 end tell
 
+
 tell application "Spotify"
-	if it is closed then
+	if player state is equal to playing then
+		tell application "Spotify"
+			playpause
+		end tell
+		
+		delay 1
+		
 		tell application "System Events" to set the visible of every process to true
 		
 		set white_list to {"Finder"}
